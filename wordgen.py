@@ -1,6 +1,7 @@
 
 import random
-
+import requests
+urlbase = "https://api.dictionaryapi.dev/api/v2/entries/en/"
 
 def gen():
     #utf8 vs unicode
@@ -9,7 +10,10 @@ def gen():
     key = random.choice(list(thedict.keys()))
     value = thedict[key]
     
-    
+    ##########################################
+    theword = key
+    url = urlbase + theword
+    response = requests.request("GET", url)
     
     
     
