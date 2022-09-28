@@ -1,4 +1,7 @@
-{'word': 'hello', 'phonetics': 
+{'word': 'hello',
+
+ 'phonetics': 
+     
  [{'audio': 'https://api.dictionaryapi.dev/media/pronunciations/en/hello-au.mp3',
    'sourceUrl': 'https://commons.wikimedia.org/w/index.php?curid=75797336',
    'license':{'name': 'BY-SA 4.0', 'url': 'https://creativecommons.org/licenses/by-sa/4.0'}}, 

@@ -13,4 +13,7 @@ x = json.loads(response)
 x = x[0]
 #print(type(x))
 #print(x)
-print("this  ",x["word"], x["phonetics"][1]["text"], x["phonetics"][1]["audio"] )
+print("this  ",
+      x["word"],
+      x["phonetics"][1]["text"],
+      x["phonetics"][1]["audio"] )

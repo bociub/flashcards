@@ -1,7 +1,32 @@
 
-import random
-import requests
+import random, requests, json
+
 urlbase = "https://api.dictionaryapi.dev/api/v2/entries/en/"
+
+def fetch(theword):
+    theword = theword.strip()
+    try:
+        urlbase = "https://api.dictionaryapi.dev/api/v2/entries/en/"
+        url = urlbase + theword
+        
+        """
+        f = open("urls.txt", "a")
+        f.write(url+"\n") #writing out after severel deserialization issue of response
+        f.close() 
+        """
+        
+        
+        response = requests.request("GET", url)
+        response = response.text
+        x = json.loads(response)
+        x = x[0]
+    
+        return      x["phonetics"][0]["text"], x["phonetics"][0]["audio"] 
+    except:
+         return ("Api not available", "or not a single word is in use")
+
+
+
 
 def gen():
     #utf8 vs unicode
@@ -11,14 +36,10 @@ def gen():
     value = thedict[key]
     
     ##########################################
-    theword = key
-    url = urlbase + theword
-    response = requests.request("GET", url)
+    x = fetch(key)
+    phonetics = x[0]
+    audio = x[1]
     
-    
-    
-    
-    
-    
-    return key,value
+
+    return key,value,phonetics,audio
  
