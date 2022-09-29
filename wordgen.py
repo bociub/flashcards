@@ -1,5 +1,5 @@
 #api for word's details: https://api.dictionaryapi.dev/
-
+#noted for later use: https://libretranslate.com/docs/
 import random, requests, json
 
 def item_generator(json_input, lookup_key):
