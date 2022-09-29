@@ -1,7 +1,6 @@
+#api for word's details: https://api.dictionaryapi.dev/
 
 import random, requests, json
-
-urlbase = "https://api.dictionaryapi.dev/api/v2/entries/en/"
 
 def item_generator(json_input, lookup_key):
     if isinstance(json_input, dict):
@@ -16,13 +15,19 @@ def item_generator(json_input, lookup_key):
 
 def fetch(theword):
     theword = theword.strip()
+    
+    audios = [] 
+    texts = []
+    definitions = []
+    examples = []
+    
     try:
         urlbase = "https://api.dictionaryapi.dev/api/v2/entries/en/"
         url = urlbase + theword
         
         """
         f = open("urls.txt", "a")
-        f.write(url+"\n") #writing out after severel deserialization issue of response
+        f.write(url+"\n") #writing out after several deserialization issue of response
         f.close() 
         """
         
@@ -30,11 +35,29 @@ def fetch(theword):
         response = requests.request("GET", url)
         response = response.text
         x = json.loads(response)
-        x = x[0]
+        
+        audio = item_generator(x, "audio")
+        for values in audio:
+            audios.append(values)
+            
+        text = item_generator(x, "text")
+        for values in text:
+            texts.append(values)
+            
+        definition = item_generator(x, "definition")
+        for values in definition:
+            definitions.append(values)
+            
+        example = item_generator(x, "example")
+        for values in example:
+            examples.append(values)
+        
+        return {"audio" : audios, "text" : texts, "definition" : definitions, "example" : examples}
+            
     
-        return      x["phonetics"][0]["text"], x["phonetics"][0]["audio"] 
+
     except:
-         return ("Api not available", "or not a single word is in use")
+         return False
 
 
 
@@ -48,9 +71,24 @@ def gen():
     
     ##########################################
     x = fetch(key)
-    phonetics = x[0]
-    audio = x[1]
+    if x == False:
+        return {"audio" : "#", "text" : "not available", "definition" : "not available", "example" : "not available"}
+    x["key"] = key
+    x["value"] = value
     
 
-    return key,value,phonetics,audio
+    return x
+""" x as dicitionary 
+key : the word
+value : my description
+audio[] : link to mp3(s) if available(uk, ua, us etc)
+text[] : phonetic(s)
+definition[] : different meanings. (verb, noun, etc not implemented)
+example[] : example sentence(s)
+
+"""
  
+if __name__ == "__main__":
+    x = gen()
+    print(x)
+    
