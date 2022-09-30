@@ -1,39 +1,72 @@
-{% include "header.html" %}
+<html>
+<head>
+    <title>Flashcards</title>
+    <style>
+        body {
+            background-color: black;
+        }
+        p {
+            color: aqua;
+            display: inline-block;
+        }
+    
+        p b {
+            color: aquamarine;
+        }
+        
+        ul li{
+            color: lightgreen;
+        
+        }
+        .button {
+          background-color: #4CAF50; 
+          border: 2px solid red; 
 
-
-
-<div class="container">
+          color: white;
+          padding: 5px 10px;
+          text-align: center;
+          display: inline-block;
+          font-size: 26px;
 
     
-    <div class="card">
-        <div class="card-header">
-            <h5>Word:</h5>
-            <h2> {{ x.key }} </h2>
-            <h5>my note:</h5>           
-            <h3> {{ x.value }} </h3>
-            <h5>Phonic:</h5>             
-            <h3> {{ x.text }} </h3>
+    </style>
+    
+    
+</head>
+<body>
+            <p><b>Word:</b><br>
+             {{ x.key }} </p><br>
+            <p><b>my note: </b><br>         
+             {{ x.value }} </p><br>
+            <p><b>Phonic:</b> <br> 
+            <ul>
+             {% for i in x.text %}         
+                <li>{{ i }}</li>
+              {% endfor %} 
+              </ul> 
+                </p> <br>
         <audio controls>
-          <source src= "{{ x.audio[0] }}" />      
-        </audio>
-            <h5>definition:</h5>
-            <h3> {{ x.definition }} </h3>
-            <h5>examples:</h5>
-            <h3> {{ x.example }} </h3>
-            <br>
-
-        </div>
-        <div class="card-body">
-        
-        
-
-
-        <div class="card-body">
-            <form action="/second" method="POST">
- 
-                <input type="submit" value="next">
+        {% for i in x.audio %} 
+          <source src= "{{ i }}" />  
+         {% endfor %}        
+        </audio><br>
+            <p><b>definition:</b><br>
+            <ul>
+            {% for i in x.definition %}
+             <li>{{ i }}</li>
+             {% endfor %} 
+             </p><br></ul>
+            <p><b>examples:</b><br>
+        <ul>
+         {% for i in x.example %}         
+            <li>{{ i }}</li>
+          {% endfor %} 
+          </ul>  </p>
+            <form  action="/second" method="POST">
+                <input class = "button" type="submit" value="next">
             </form>
-        </div>
 
-        </div>
-    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,3 @@
+#api for word's details: https://api.dictionaryapi.dev/
+#noted for later use: https://libretranslate.com/docs/
+jinja html: https://www.digitalocean.com/community/tutorials/how-to-use-web-forms-in-a-flask-application
